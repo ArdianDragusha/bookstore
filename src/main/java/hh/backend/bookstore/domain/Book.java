@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 @Entity
 public class Book {
 
+    @ManyToOne
+    @JoinColumn(name = "categoryid")
+    private Category category;
+
     @Id // Primary Key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
