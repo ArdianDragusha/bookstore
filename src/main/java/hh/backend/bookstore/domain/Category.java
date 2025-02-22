@@ -1,5 +1,6 @@
 package hh.backend.bookstore.domain;
 
+
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -12,9 +13,11 @@ public class Category {
 
     private String name;
 
+    
+
+
     @OneToMany(mappedBy = "category")
     private List<Book> books;
-
     public Category() {
     }
 
