@@ -1,7 +1,12 @@
 package hh.backend.bookstore.domain;
 
-import jakarta.persistence.*;
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Category {
@@ -9,19 +14,38 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryid;
+
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category")
     private List<Book> books;
 
     public Category() {
+        this.categoryid = null;
+        this.name = null;
+        this.books = null;
     }
 
     public Category(String name) {
         this.name = name;
     }
 
-    // Getters and setters
+    public Long getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(Long categoryid) {
+        this.categoryid = categoryid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Book> getBooks() {
         return books;
     }
@@ -30,12 +54,8 @@ public class Category {
         this.books = books;
     }
 
-    public String getName() {
-        return name;
-    }
-
     @Override
     public String toString() {
-        return "Category [id=" + categoryid + ", name=" + name + "]";
+        return "Category [categoryid=" + categoryid + ", name=" + name + "]";
     }
 }
