@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tervetuloa</title>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap-5.3.3-dist/css/bootstrap.min.css"
-        th:href="@{/css/bootstrap-3.3.3-dist/css/bootstrap.min.css}" />
+        th:href="@{/css/bootstrap-5.3.3-dist/css/bootstrap.min.css}" />
 </head>
 
 <body>
@@ -32,8 +32,7 @@
                 <td th:text="${book.publicationYear}">Year</td>
                 <td th:text="${book.category.name}">Category</td>
                 <td>
-                    <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="display:inline;"
-                        sec:authorize="hasRole('ADMIN')">
+                    <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="display:inline;">
                         <input type="hidden" name="_method" value="delete" />
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>

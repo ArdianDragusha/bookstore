@@ -5,11 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.boot.CommandLineRunner;
 import hh.backend.bookstore.domain.Book;
 import hh.backend.bookstore.domain.BookRepository;
 import hh.backend.bookstore.domain.Category;
 import hh.backend.bookstore.domain.CategoryRepository;
+import hh.backend.bookstore.domain.User;
+import hh.backend.bookstore.domain.UserRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -21,7 +24,8 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(BookRepository bookRepository, CategoryRepository categoryRepository) {
+	public CommandLineRunner demo(BookRepository bookRepository, CategoryRepository categoryRepository,
+			UserRepository userRepository) {
 		return (args) -> {
 			Category scifi = new Category("Scifi");
 			Category comic = new Category("Comic");
@@ -43,10 +47,10 @@ public class BookstoreApplication {
 			for (Book book : bookRepository.findAll()) {
 				log.info(book.toString());
 			}
+
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			userRepository.save(new User("user", encoder.encode("user"), "user@example.com", "USER"));
+			userRepository.save(new User("admin", encoder.encode("admin"), "admin@example.com", "ADMIN"));
 		};
 	}
-	
-
-	
-	}
-
+}
